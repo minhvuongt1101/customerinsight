@@ -18,13 +18,48 @@ document.addEventListener('DOMContentLoaded', () => {
     // 4. BCG Matrices
     if (document.getElementById('bcgChart1')) renderBCGChart('bcgChart1', infographicData.part3.bcg_matrices.tainha_office.data, 'Văn phòng Tại nhà Tỉnh / Office', infographicData.part3.bcg_matrices.tainha_office.median);
     if (document.getElementById('bcgChart2')) renderBCGChart('bcgChart2', infographicData.part3.bcg_matrices.khuvuc_tttn.data, 'Khu Vực TTTN Hà Nội', infographicData.part3.bcg_matrices.khuvuc_tttn.median);
-    if (document.getElementById('bcgChart3')) renderBCGChart('bcgChart3', infographicData.part3.bcg_matrices.bvpk_office.data, 'Bệnh Viện / Phòng Khám', infographicData.part3.bcg_matrices.bvpk_office.median);
     if (document.getElementById('bcgChart4')) renderBCGChart('bcgChart4', infographicData.part3.bcg_matrices.vanphong_tn_hn.data, 'Văn Phòng TTTN Hà Nội (Detailed)', infographicData.part3.bcg_matrices.vanphong_tn_hn.median);
+
+    // 5. Migration Chart
+    if (document.getElementById('migrationChart')) {
+        renderMigrationChart('migrationChart', infographicData.part4.migration);
+    }
 });
 
 // --- CHART FUNCTIONS ---
 
+function renderMigrationChart(canvasId, data) {
+    const ctx = document.getElementById(canvasId).getContext('2d');
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: data.labels,
+            datasets: data.datasets
+        },
+        options: {
+            indexAxis: 'y', // Horizontal Stacked Bar
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                x: { stacked: true, max: 100 },
+                y: { stacked: true, grid: { display: false } }
+            },
+            plugins: {
+                legend: { position: 'top', labels: { usePointStyle: true, boxWidth: 8 } },
+                tooltip: {
+                    callbacks: {
+                        label: function (context) {
+                            return context.dataset.label + ': ' + context.raw + '%';
+                        }
+                    }
+                }
+            }
+        }
+    });
+}
+
 function renderRetentionGauge(canvasId, value) {
+
     const ctx = document.getElementById(canvasId).getContext('2d');
     new Chart(ctx, {
         type: 'doughnut',

@@ -136,5 +136,32 @@ const infographicData = {
             badinh: "Med Ba Đình: Trụ cột doanh thu nhưng đang mất khách Loyalty (-6.1%). Tăng trưởng đang dựa vào tăng giá (ARPU), kém bền vững.",
             thanhhoa: "Med Thanh Hóa: Mô hình kiểu mẫu với tăng trưởng kép (Quy mô +16.9%, Chất lượng +7.5%)."
         }
+    },
+    part4: {
+        rfm: [
+            { name: "Đặc biệt", share: 1.30, aov: "1.42 Tr", freq: 7.38, churn: 20.1, desc: "Core VIP: Giá trị nhất, bền vững nhất", color: "bg-teal-100 text-teal-800" },
+            { name: "Chi tiêu cao", share: 4.87, aov: "3.09 Tr", freq: 1.95, churn: 57.3, desc: "'Cá Mập': Chi cao nhưng dễ bỏ (Transactional)", color: "bg-purple-100 text-purple-800" },
+            { name: "Nguy cơ", share: 10.82, aov: "2.08 Tr", freq: 1.73, churn: 78.0, desc: "Báo động đỏ: Giá trị cao đang rời bỏ ồ ạt", color: "bg-red-100 text-red-800" },
+            { name: "Mới", share: 18.51, aov: "1.09 Tr", freq: 1.00, churn: 79.6, desc: "Thủng đáy: 80% đến 1 lần rồi đi mãi mãi", color: "bg-blue-100 text-blue-800" }
+        ],
+        migration: {
+            // Data for Stacked Bar: [Giữ hạng, Nâng hạng, Tụt hạng, Rời bỏ]
+            labels: ["Chi Tiêu Cao '24", "Đặc Biệt '24", "Mới '24"],
+            datasets: [
+                { label: 'Giữ hạng (Retained)', data: [10, 25, 3], backgroundColor: '#10b981' }, // Green
+                { label: 'Nâng hạng (Upgrade)', data: [3.4, 0, 2.2], backgroundColor: '#3b82f6' }, // Blue
+                { label: 'Tụt hạng (Downgrade)', data: [29.3, 54.9, 15.2], backgroundColor: '#f59e0b' }, // Orange (Calc remainder or use raw if avail? Table 17 has raw numbers. I used approx percentages based on available fields or raw.
+                // Let's use Table 17 Raw Data to calculate % exactly or use provided %. Table 17 has % Churn.
+                // Chi tieu cao: Retained 10%, Upgrade 3.4% (434/12719), Churn 57.3%. Remainder = Downgrade (~29%).
+                // Dac biet: Retained 25%, Churn 20.1%. Downgrade = Remainder (~55%).
+                // Moi: Retained 3%, Upgrade 2.2% (2822/127608), Churn 79.6%. Downgrade/Lost = Remainder. 
+                { label: 'Rời bỏ (Churn)', data: [57.3, 20.1, 79.6], backgroundColor: '#ef4444' } // Red
+            ]
+        },
+        insights: [
+            { title: "Vấn đề 'Chi Tiêu Cao'", text: "AOV kỷ lục (3.1Tr) nhưng quan hệ 'Giao dịch'. Tỷ lệ rời bỏ 57% -> Bán được hàng nhưng không giữ được người." },
+            { title: "Lãng phí Khách Mới", text: "80% khách mới (hơn 100k người) ra đi sau lần đầu. Chi phí thu hút (Acquisition Cost) bị lãng phí khổng lồ." }
+        ]
     }
 };
+
